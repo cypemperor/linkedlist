@@ -9,6 +9,7 @@ export class Element {
   constructor(value) {
     this.value = value
     this.next = null
+    this.prev = null
   }
 
   get value() {
@@ -23,10 +24,11 @@ export class Element {
 export class List {
   size
   head
+  tail
   constructor(arr = null) {
     this.size = 0
     this.head = null
-
+    this.tail = null
     if (arr) {
       arr.forEach(element => {
         this.add(new Element(element))
@@ -53,14 +55,25 @@ export class List {
     return this.head
   }
 
+  // 4 -> 3 -> 2 -> 1 -> null
+  //                       .
   toArray() {
-    let arr = []
-    let current = this.head
-    while (current !== null) {
-      arr.push(current.value)
-      current = current.next
-    }
-    return arr
+
+    return this.toArrayRecursive(this.head, [])
+
+
+    // while (current !== null) {
+    //   arr.push(current.value)
+    //   current = current.next
+    // }
+  }
+
+  toArrayRecursive(current, arr) {
+    if (current === null) return arr
+
+    arr.push(current.value)
+
+    return this.toArrayRecursive(current.next, arr)
   }
 
   reverse() {

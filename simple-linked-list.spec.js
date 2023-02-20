@@ -15,6 +15,11 @@ describe('Element class', () => {
     const element = new Element(1);
     expect(element.next).toEqual(null);
   });
+
+  test('has null for prev by default', () => {
+    const element = new Element(1);
+    expect(element.prev).toEqual(null);
+  });
 });
 
 describe('List class', () => {
@@ -55,11 +60,23 @@ describe('List class', () => {
     expect(list.head).toEqual(null);
   });
 
+  test('new Lists have a null tail element', () => {
+    const list = new List();
+    expect(list.tail).toEqual(null);
+  });
+
   test('adding an Element to an empty list sets the head Element', () => {
     const list = new List();
     const element = new Element(1);
     list.add(element);
     expect(list.head.value).toEqual(1);
+  });
+
+  xtest('adding an Element to an empty list sets the tail Element', () => {
+    const list = new List();
+    const element = new Element(1);
+    list.add(element);
+    expect(list.tail.value).toEqual(1);
   });
 
   test('adding a second Element updates the head Element', () => {
